@@ -1,5 +1,5 @@
 ---
-order: 1
+order: 2
 ---
 
 # Connect without long-lived API keys

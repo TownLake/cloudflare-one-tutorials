@@ -73,19 +73,39 @@ Next, you can [build a policy](https://developers.cloudflare.com/gateway/getting
 
 ![Add Policy](../static/secure-web-gateway/block-uploads/add-policy.png)
 
-In the rule builder, add a rule where `Host is drive.google.com` and a second rule where `Upload Mime Type matches regex .*`. Choose the Block action.
+Uploading files to Google Drive consists of `POST` and `PUT` methods made to `clients6.google.com`. To block Google Drive uploads, block these methods to that host.
 
-![Block CSV](../static/secure-web-gateway/block-uploads/match-regex.png)
+In the rule builder, add `Host is drive.google.com` and a second rule where `HTTP Method is POST`. Choose the Block action. Click `Save`.
 
-Alternatively, you can build a policy to only block files of a certain type. For example, to block CSV file uploads to Google Drive, add `Host is drive.google.com` and a second rule where `Upload Mime Type is text/csv`. Choose the Block action.
+![Block POST](../static/secure-web-gateway/block-uploads/block-post.png)
 
-![Block CSV](../static/secure-web-gateway/block-uploads/block-csv.png)
+Add a second policy, replacing `POST` with `PUT`.
+
+![Block PUT](../static/secure-web-gateway/block-uploads/block-put.png)
+
+You should now see both policies in the `Policies` view.
+
+![All Policies](../static/secure-web-gateway/block-uploads/all-policies.png)
+
+<Aside>
+
+Alternatively, you can block all POST and PUT methods to `google.com` subdomains in the event that the `clients6` subdomain changes. However, this may block other Google functionality.
+
+</Aside>
+
+## Test policy
+
+You can test the policy by attempting to upload a file to Google Drive. Google Drive should return an error message when blocked.
+
+![Block Action](../static/secure-web-gateway/block-uploads/block-result.png)
 
 ## View Logs
 
 Once enabled, if a user attempts to upload a file you can view logs of the block.
 
 Navigate to the `Logs` section of the sidebar and choose `Gateway`. Open the Filter action and select `Block` from the dropdown under `Decision`.
+
+![Block Action](../static/secure-web-gateway/block-uploads/block-logs.png)
 
 ## Optional: Deploy via MDM
 
