@@ -2,7 +2,7 @@
 order: 3
 ---
 
-# Block file uploads
+# Block file uploads to Google Drive
 
 You can use Cloudflare Gateway and the Cloudflare WARP client application to prevent enrolled devices from uploading files to an unapproved cloud storage provider.
 
